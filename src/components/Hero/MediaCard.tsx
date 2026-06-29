@@ -29,7 +29,7 @@ export default function MediaCard({
           </div>
         ) : null}
 
-        <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
+        <div className="overflow-hidden rounded-[0.5rem] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
           <div className="flex min-h-[280px] flex-col sm:min-h-[320px] sm:flex-row">
 
             <div className="relative min-h-[200px] flex-1 bg-[#0f2d6e] sm:min-h-[320px]">

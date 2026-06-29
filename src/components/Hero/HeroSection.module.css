@@ -1,0 +1,40 @@
+@keyframes heroMediaFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.mediaStack {
+  position: relative;
+  animation: heroMediaFloat 6s ease-in-out infinite;
+  transition: transform 0.35s ease;
+}
+
+.mediaStack:hover {
+  animation-play-state: paused;
+  transform: translateY(-10px);
+}
+
+.mediaCardLayer {
+  position: relative;
+}
+
+.mediaCardLayer > div:not(.mediaBackdrop) {
+  position: relative;
+  z-index: 1;
+}
+
+.mediaBackdrop {
+  position: absolute;
+  z-index: 0;
+  inset: -8px;
+  border-radius: 8px;
+  background: #152d68;
+  box-shadow: 0 20px 40px rgba(29, 63, 145, 0.45);
+  pointer-events: none;
+}

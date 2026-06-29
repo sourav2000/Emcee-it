@@ -1,5 +1,6 @@
 import { useHeroData } from '../../hooks/useHeroData'
 import HeroContentPanel from './HeroContentPanel'
+import styles from './HeroSection.module.css'
 import MediaCard from './MediaCard'
 
 function HeroSkeleton() {
@@ -79,11 +80,16 @@ export default function HeroSection() {
             <HeroContentPanel content={data} />
           </div>
           <div className="min-w-0">
-            <MediaCard
-              imageUrl={data.imageUrl}
-              videoUrl={data.videoUrl}
-              imageBadgeText={data.imageBadgeText}
-            />
+            <div className={styles.mediaStack}>
+              <div className={styles.mediaCardLayer}>
+                <div className={styles.mediaBackdrop} aria-hidden="true" />
+                <MediaCard
+                  imageUrl={data.imageUrl}
+                  videoUrl={data.videoUrl}
+                  imageBadgeText={data.imageBadgeText}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
