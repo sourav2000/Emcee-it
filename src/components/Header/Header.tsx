@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import logo from '../../assets/logo/emcee_it.png'
 import HeaderNavLink from './HeaderNavLink'
+import MobileNavMenu from './MobileNavMenu'
 import styles from './Header.module.css'
 
 const NAV_ITEMS = [
-  // { label: 'Home', href: '/' },
   { label: 'AI Solutions', href: '/ai-solutions' },
   { label: 'Services', href: '/services' },
   { label: 'Portfolio', href: '/portfolio' },
@@ -14,12 +14,32 @@ const NAV_ITEMS = [
 ] as const
 
 const CTA_HREF = '/estimate'
+const CTA_LABEL = 'Start Your Estimate'
 
 function isActivePath(pathname: string, href: string): boolean {
   if (href === '/') {
     return pathname === '/'
   }
   return pathname === href || pathname.startsWith(`${href}/`)
+}
+
+function HamburgerIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </svg>
+  )
 }
 
 export default function Header() {
@@ -48,7 +68,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth >= 1024) {
         setIsMenuOpen(false)
       }
     }
@@ -69,8 +89,8 @@ export default function Header() {
     setIsMenuOpen(false)
   }, [])
 
-  const toggleMenu = () => {
-    setIsMenuOpen((open) => !open)
+  const openMenu = () => {
+    setIsMenuOpen(true)
   }
 
   const handleNavClick = (href: string) => {
@@ -79,10 +99,6 @@ export default function Header() {
   }
 
   const headerClassName = [styles.header, isScrolled ? styles.scrolled : '']
-    .filter(Boolean)
-    .join(' ')
-
-  const mobileMenuClassName = [styles.mobileMenu, isMenuOpen ? styles.mobileMenuOpen : '']
     .filter(Boolean)
     .join(' ')
 
@@ -109,54 +125,31 @@ export default function Header() {
         </nav>
 
         <a href={CTA_HREF} className={styles.cta}>
-          Start Your Estimate
+          {CTA_LABEL}
         </a>
 
         <button
           type="button"
-          className={styles.menuToggle}
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white text-[#1e293b] shadow-sm transition-colors duration-200 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1E40AF] focus-visible:outline-offset-2 lg:hidden"
+          aria-label="Open menu"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
-          onClick={toggleMenu}
+          onClick={openMenu}
         >
-          <span className={styles.menuBar} />
-          <span className={styles.menuBar} />
-          <span className={styles.menuBar} />
+          <HamburgerIcon />
         </button>
       </div>
 
-      <div
-        className={`${styles.overlay} ${isMenuOpen ? styles.overlayVisible : ''}`}
-        onClick={closeMenu}
-        aria-hidden="true"
+      <MobileNavMenu
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+        navItems={NAV_ITEMS}
+        activePath={activePath}
+        onNavClick={handleNavClick}
+        ctaHref={CTA_HREF}
+        ctaLabel={CTA_LABEL}
+        isActivePath={isActivePath}
       />
-
-      <nav
-        id="mobile-navigation"
-        className={mobileMenuClassName}
-        aria-label="Mobile navigation"
-        aria-hidden={!isMenuOpen}
-      >
-        <ul className={styles.mobileNavList}>
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <HeaderNavLink
-                href={item.href}
-                isActive={isActivePath(activePath, item.href)}
-                variant="mobile"
-                onClick={() => handleNavClick(item.href)}
-              >
-                {item.label}
-              </HeaderNavLink>
-            </li>
-          ))}
-        </ul>
-
-        <a href={CTA_HREF} className={styles.mobileCta} onClick={closeMenu}>
-          Start Your Estimate
-        </a>
-      </nav>
     </header>
   )
 }
