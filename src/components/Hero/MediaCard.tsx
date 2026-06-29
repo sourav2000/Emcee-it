@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { PlayIcon } from './icons'
 import styles from './MediaCard.module.css'
 import VideoModal from './VideoModal'
+import { getYouTubeEmbedUrl } from '../../video-modal/youtube.js'
 
 interface MediaCardProps {
   imageUrl: string | null
@@ -17,7 +18,7 @@ export default function MediaCard({
   const [isVideoOpen, setIsVideoOpen] = useState(false)
 
   const hasMedia = Boolean(imageUrl || videoUrl)
-  const hasVideo = Boolean(videoUrl)
+  const hasVideo = Boolean(videoUrl && getYouTubeEmbedUrl(videoUrl))
 
   return (
     <>
@@ -39,30 +40,27 @@ export default function MediaCard({
             className={`${styles.videoCard} overflow-hidden rounded-[8px] bg-white ring-1 ring-white/10`}
           >
 
-            {/* Fixed 16:9 Ratio */}
-            <div className="relative aspect-video w-full">
-
-              {hasMedia ? (
+            <div className={styles.thumbnailContainer}>
+              {imageUrl ? (
                 <img
-                  src={imageUrl ?? undefined}
+                  src={imageUrl}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  className={styles.thumbnailImage}
                 />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1a3a7a] to-[#0c1f4d]" />
-              )}
+              ) : hasMedia ? (
+                <div className={styles.thumbnailFallback} />
+              ) : null}
 
               {hasVideo && (
                 <button
                   type="button"
-                  className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#f26522] text-white shadow-[0_12px_32px_rgba(242,101,34,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_18px_45px_rgba(242,101,34,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 sm:h-[4.5rem] sm:w-[4.5rem]"
+                  className={styles.playButton}
                   aria-label="Play video"
                   onClick={() => setIsVideoOpen(true)}
                 >
                   <PlayIcon />
                 </button>
               )}
-
             </div>
           </div>
         </div>

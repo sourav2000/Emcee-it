@@ -35,6 +35,7 @@ export interface HeroAcfFields {
   secondary_button_link?: string
   image_badge_text?: string
   hero_video?: number | string | WpAcfImageField | false | null
+  hero_video_url?: string
   hero_video_thumbnail?: number | string | WpAcfImageField | false | null
   hero_image?: number | string | WpAcfImageField | false | null
   website?: string

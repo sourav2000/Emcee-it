@@ -1,5 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react'
-import { CloseIcon } from './icons'
+import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import { closeVideoModal, openVideoModal } from '../../video-modal/video-modal.js'
+import { getYouTubeEmbedUrl } from '../../video-modal/youtube.js'
+import '../../video-modal/video-modal.css'
 
 interface VideoModalProps {
   videoUrl: string
@@ -8,85 +11,96 @@ interface VideoModalProps {
 }
 
 export default function VideoModal({ videoUrl, isOpen, onClose }: VideoModalProps) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const isYouTube = Boolean(getYouTubeEmbedUrl(videoUrl))
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+  useEffect(() => {
+    const modal = modalRef.current
+
+    return () => {
+      if (modal) {
+        closeVideoModal(modal)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const modal = modalRef.current
+    if (!modal || !isYouTube) {
+      return
+    }
+
+    if (isOpen) {
+      openVideoModal(modal, videoUrl)
+    } else {
+      closeVideoModal(modal)
+    }
+  }, [isOpen, isYouTube, videoUrl])
+
+  useEffect(() => {
+    const modal = modalRef.current
+    if (!modal || !isYouTube) {
+      return
+    }
+
+    const overlay = modal.querySelector('[data-video-modal-overlay]')
+    const closeButton = modal.querySelector('[data-video-modal-close]')
+
+    const handleClose = () => {
+      onClose()
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
         onClose()
       }
-    },
-    [onClose],
-  )
-
-  useEffect(() => {
-    if (!isOpen) {
-      return
     }
 
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    overlay?.addEventListener('click', handleClose)
+    closeButton?.addEventListener('click', handleClose)
     document.addEventListener('keydown', handleKeyDown)
-    closeButtonRef.current?.focus()
 
     return () => {
-      document.body.style.overflow = previousOverflow
+      overlay?.removeEventListener('click', handleClose)
+      closeButton?.removeEventListener('click', handleClose)
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [handleKeyDown, isOpen])
+  }, [isOpen, isYouTube, onClose])
 
-  useEffect(() => {
-    const video = videoRef.current
-    if (!isOpen || !video) {
-      return
-    }
-
-    void video.play().catch(() => {
-      // Autoplay may be blocked by the browser; controls remain available.
-    })
-
-    return () => {
-      video.pause()
-      video.currentTime = 0
-    }
-  }, [isOpen, videoUrl])
-
-  if (!isOpen) {
+  if (!isYouTube) {
     return null
   }
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/85 p-4 sm:p-6"
+      ref={modalRef}
+      className="video-modal"
       role="dialog"
       aria-modal="true"
       aria-label="Video player"
-      onClick={onClose}
+      aria-hidden="true"
     >
-      <div
-        className="relative w-full max-w-4xl"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <div className="video-modal__overlay" data-video-modal-overlay aria-hidden="true" />
+      <div className="video-modal__dialog">
         <button
-          ref={closeButtonRef}
           type="button"
-          className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          className="video-modal__close"
+          data-video-modal-close
           aria-label="Close video"
-          onClick={onClose}
         >
-          <CloseIcon />
+          &times;
         </button>
-        <video
-          ref={videoRef}
-          className="w-full rounded-xl bg-black shadow-2xl"
-          controls
-          playsInline
-          src={videoUrl}
-        >
-          <track kind="captions" />
-        </video>
+        <div className="video-modal__player">
+          <iframe
+            className="video-modal__iframe"
+            data-video-modal-iframe
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

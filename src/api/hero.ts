@@ -160,9 +160,10 @@ export function fetchHeroContent(): Promise<HeroContent> {
     }
 
     const acf = extractAcfFields(page)
+    const heroVideoUrl = asString(acf.hero_video_url)
     const [imageUrl, videoUrl] = await Promise.all([
       resolveImageUrl(acf.hero_video_thumbnail, acf.hero_image, acf.hero_video),
-      resolveVideoUrl(acf.hero_video),
+      heroVideoUrl ? Promise.resolve(heroVideoUrl) : resolveVideoUrl(acf.hero_video),
     ])
 
     return {

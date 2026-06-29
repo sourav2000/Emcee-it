@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Modal Demo</title>
+    <link rel="stylesheet" href="/video-modal/video-modal.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Inter, system-ui, sans-serif;
+        background: #0a1f4d;
+        color: #fff;
+      }
+
+      .play-video-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: 9999px;
+        background: #f26522;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" class="play-video-btn" data-video-modal-play>Play Video</button>
+
+    <div class="video-modal" data-video-modal aria-hidden="true">
+      <div class="video-modal__overlay" data-video-modal-overlay aria-hidden="true"></div>
+      <div class="video-modal__dialog">
+        <button
+          type="button"
+          class="video-modal__close"
+          data-video-modal-close
+          aria-label="Close video"
+        >
+          &times;
+        </button>
+        <div class="video-modal__player">
+          <iframe
+            class="video-modal__iframe"
+            data-video-modal-iframe
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initVideoModal } from '/src/video-modal/video-modal.js'
+
+      const playButton = document.querySelector('[data-video-modal-play]')
+      const modal = document.querySelector('[data-video-modal]')
+
+      initVideoModal({
+        playButton,
+        modal,
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      })
+    </script>
+  </body>
+</html>
