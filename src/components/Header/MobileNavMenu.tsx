@@ -64,7 +64,7 @@ export default function MobileNavMenu({
       <div
         className={[
           'fixed inset-0 z-[999] bg-black/50 transition-opacity duration-300 lg:hidden',
-          isOpen ? 'visible opacity-100' : 'invisible opacity-0 pointer-events-none',
+          isOpen ? 'visible opacity-100' : 'hidden',
         ].join(' ')}
         onClick={onClose}
         aria-hidden="true"
@@ -74,7 +74,7 @@ export default function MobileNavMenu({
         id="mobile-navigation"
         className={[
           'fixed inset-y-0 right-0 z-[1001] flex w-full flex-col bg-[#fbfcfd] transition-transform duration-300 ease-in-out lg:hidden',
-          isOpen ? 'visible translate-x-0' : 'invisible translate-x-full',
+          isOpen ? 'translate-x-0' : 'hidden',
         ].join(' ')}
         aria-label="Mobile navigation"
         aria-hidden={!isOpen}
