@@ -1,3 +1,5 @@
+import styles from './Header.module.css'
+
 type HeaderNavLinkProps = {
   href: string
   children: string
@@ -10,7 +12,7 @@ const focusClasses =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1c3c8c] focus-visible:outline-offset-2'
 
 const desktopLinkBase =
-  'relative inline-block font-medium no-underline transition-colors duration-300'
+  'relative inline-block no-underline transition-colors duration-300'
 
 const desktopUnderline =
   "after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-left after:scale-x-0 after:bg-[#1E40AF] after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100"
@@ -24,13 +26,13 @@ export default function HeaderNavLink({
 }: HeaderNavLinkProps) {
   if (variant === 'mobile') {
     const mobileClasses = isActive
-      ? 'block w-full rounded-lg bg-[#EFF6FF] px-4 py-3.5 text-base font-medium leading-snug text-[#1E40AF] no-underline transition-colors duration-300'
-      : 'block w-full rounded-lg px-4 py-3.5 text-base font-medium leading-snug text-[#374151] no-underline transition-colors duration-300 hover:bg-gray-100'
+      ? 'block w-full rounded-lg bg-[#EFF6FF] px-4 py-3.5 text-[#1E40AF] no-underline transition-colors duration-300'
+      : 'block w-full rounded-lg px-4 py-3.5 text-[#374151] no-underline transition-colors duration-300 hover:bg-gray-100'
 
     return (
       <a
         href={href}
-        className={`${mobileClasses} ${focusClasses}`}
+        className={`${styles.navLink} ${mobileClasses} ${focusClasses}`}
         aria-current={isActive ? 'page' : undefined}
         onClick={onClick}
       >
@@ -46,7 +48,7 @@ export default function HeaderNavLink({
   return (
     <a
       href={href}
-      className={`${desktopLinkBase} ${desktopUnderline} ${stateClasses} px-3 py-2 text-[0.9375rem] leading-snug whitespace-nowrap ${focusClasses}`}
+      className={`${styles.navLink} ${desktopLinkBase} ${desktopUnderline} ${stateClasses} px-3 py-2 whitespace-nowrap ${focusClasses}`}
       aria-current={isActive ? 'page' : undefined}
       onClick={onClick}
     >

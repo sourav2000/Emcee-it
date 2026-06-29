@@ -72,6 +72,13 @@
   list-style: none;
 }
 
+.navLink {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
 .cta {
   flex-shrink: 0;
   display: inline-flex;

@@ -1,7 +1,9 @@
 @import 'tailwindcss';
 
 :root {
-  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans:
+    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
   --header-height: 4.75rem;
 
   font-family: var(--sans);
@@ -25,6 +27,7 @@
 
 body {
   margin: 0;
+  font-family: inherit;
   color: #1e293b;
   background: #ffffff;
 }
