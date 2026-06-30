@@ -41,5 +41,18 @@ export function getYouTubeEmbedUrl(url) {
     return null
   }
 
-  return `https://www.youtube.com/embed/${id}`
+  const params = new URLSearchParams({
+    autoplay: '1',
+    rel: '0',
+    controls: '1',
+    modestbranding: '1',
+    playsinline: '1',
+    fs: '1',
+    iv_load_policy: '3',
+    cc_load_policy: '1',
+    cc_lang_pref: 'en',
+    disablekb: '0',
+  })
+
+  return `https://www.youtube.com/embed/${id}?${params.toString()}`
 }
