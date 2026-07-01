@@ -37,19 +37,46 @@ export function RocketIcon({ className = '' }: { className?: string }) {
       aria-hidden="true"
       className={className}
     >
-      <path
-        d="M8 13.5C8 13.5 3 11.5 3 6.5C3 4.5 4.5 3 6.5 3C7.5 3 8 3.5 8 3.5C8 3.5 8.5 3 9.5 3C11.5 3 13 4.5 13 6.5C13 11.5 8 13.5 8 13.5Z"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 10V6.5"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="round"
-      />
-      <circle cx="8" cy="5.5" r="0.75" fill="currentColor" />
+      <g transform="rotate(45 8 8)">
+        <path
+          d="M8 2.25C8 2.25 10.25 4.25 10.25 6.5V9C10.25 9.75 9.25 10.25 8 10.25C6.75 10.25 5.75 9.75 5.75 9V6.5C5.75 4.25 8 2.25 8 2.25Z"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M5.75 9C5 9.75 4.5 10.5 4.35 11.15"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.25 9C11 9.75 11.5 10.5 11.65 11.15"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4.55 11.45C4.55 11.45 4.3 12 4.55 12.4C4.8 12 4.55 11.45 4.55 11.45Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8 11.75C8 11.75 7.75 12.4 8 12.8C8.25 12.4 8 11.75 8 11.75Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.45 11.45C11.45 11.45 11.2 12 11.45 12.4C11.7 12 11.45 11.45 11.45 11.45Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+      </g>
     </svg>
   )
 }
