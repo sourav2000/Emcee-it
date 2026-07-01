@@ -28,7 +28,7 @@ export default function MediaCard({
 
           {/* Badge */}
           {imageBadgeText ? (
-            <div className="absolute -top-4 right-0 z-20">
+            <div className="absolute -top-4 right-0 z-20 cursor-pointer">
               <span className="inline-flex h-8 items-center whitespace-nowrap rounded-full bg-[#f26522] px-4 text-xs font-semibold text-white shadow-[0_10px_30px_rgba(242,101,34,0.35)] sm:h-9 sm:px-5 sm:text-sm">
                 {imageBadgeText}
               </span>
