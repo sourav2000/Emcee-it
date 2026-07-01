@@ -17,7 +17,7 @@ export default function FeatureItem({
 }: FeatureItemProps) {
   return (
     <li className="flex items-center gap-3">
-      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f26522] text-white">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-[#f26522] text-[#f26522]">
         <CheckIcon />
       </span>
       <span className="flex items-center gap-2 text-base font-normal leading-snug text-white">
