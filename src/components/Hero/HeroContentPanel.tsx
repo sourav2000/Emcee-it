@@ -59,7 +59,7 @@ export default function HeroContentPanel({ content }: HeroContentPanelProps) {
             <HeroButton
               href={content.secondaryButtonLink || '#'}
               variant="secondary"
-              showArrow
+              // showArrow
             >
               {content.secondaryButtonText}
             </HeroButton>
