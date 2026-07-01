@@ -6,6 +6,7 @@
   --footer-link-hover: #ffffff;
   --footer-bagde-color: #3d7bf4;
 
+  display: flow-root;
   background-color: var(--footer-bg);
   color: var(--footer-text);
 }
@@ -13,11 +14,11 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 4rem 1.5rem 0;
+  padding: 2rem 2rem 0;
 }
 
 .errorBanner {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   padding: 1.5rem;
   border: 1px solid var(--footer-border);
   border-radius: 0.75rem;
@@ -243,7 +244,7 @@
 
 @media (min-width: 1024px) {
   .container {
-    padding: 4.5rem 2rem 0;
+    padding: 2rem 2rem 0;
   }
 
   .grid {
@@ -261,6 +262,6 @@
 
 @media (max-width: 1023px) {
   .container {
-    padding-top: 3.5rem;
+    padding-top: 2rem 2rem 0; 
   }
 }
